@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>แก้ไขรายละเอียดการผลิต</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <div id="site-header"></div>
+    <script src="/js/include-header.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <main class="container py-4" style="max-width: 1200px">
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="mb-0">แก้ไขรายละเอียดการผลิต</h3>
+        <div class="d-flex gap-2">
+          <a
+            id="btnBack"
+            href="/showdetail/index.html"
+            class="btn btn-outline-secondary"
+          >
+            <i class="bi bi-arrow-left"></i> ย้อนกลับ
+          </a>
+          <button id="btnSave" class="btn btn-success">
+            <i class="bi bi-save"></i> บันทึก
+          </button>
+        </div>
+      </div>
+
+      <div id="alertBox" class="alert d-none" role="alert"></div>
+
+      <!-- ข้อมูลหัว -->
+      <div class="row g-3">
+        <div class="card shadow-sm p-4">
+          <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label fw-semibold text-secondary"
+                >ชื่อผลิตภัณฑ์</label
+              >
+              <input id="product_name" class="form-control bg-secondary-subtle text-secondary" readonly />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label fw-semibold text-secondary"
+                >ปริมาณการผลิต (กรัม)</label
+              >
+              <input
+                id="order_quantity"
+                class="form-control text-end bg-secondary-subtle text-secondary"
+                readonly
+              />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label fw-semibold text-secondary"
+                >รหัสผลิตภัณฑ์</label
+              >
+              <input id="product_code" class="form-control bg-secondary-subtle text-secondary" readonly />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label fw-semibold text-secondary"
+                >ราคารวม (บาท)</label
+              >
+              <input
+                id="price"
+                class="form-control text-end bg-secondary-subtle text-secondary"
+                readonly
+              />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label fw-semibold text-secondary"
+                >รหัสล็อตการผลิต</label
+              >
+              <input id="order_lot" class="form-control bg-secondary-subtle text-secondary" readonly />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label fw-semibold text-secondary"
+                >วันที่ผลิต</label
+              >
+              <input id="order_date" class="form-control bg-secondary-subtle text-secondary" readonly />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="form-label  fw-semibold text-secondary"
+                >วันหมดอายุ</label
+              >
+              <input id="order_exp" class="form-control bg-secondary-subtle text-secondary" readonly />
+            </div>
+          </div>
+        </div>
+
+<!-- 🧪 ข้อมูลตรวจสอบคุณภาพ (QC) -->
+<div class="card shadow-sm p-4 mt-4">
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-3">
+      <label class="form-label fw-semibold text-secondary">ค่า pH</label>
+      <div class="input-group">
+        <input
+          id="ph"
+          type="number"
+          step="0.01"
+          min="0"
+          max="14"
+          class="form-control text-end bg-primary-subtle text-primary"
+          placeholder="0.00"
+        />
+        <span class="input-group-text bg-light text-muted">pH</span>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <label class="form-label fw-semibold text-secondary">สี</label>
+      <select id="color" class="form-select bg-primary-subtle text-primary">
+        <option value="">-</option>
+        <option value="0">ปกติ</option>
+        <option value="1">ผิดปกติ</option>
+      </select>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <label class="form-label  fw-semibold text-secondary">กลิ่น</label>
+      <select id="smell" class="form-select bg-primary-subtle text-primary">
+        <option value="">-</option>
+        <option value="0">ไม่มีกลิ่น</option>
+        <option value="1">มีกลิ่น</option>
+      </select>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <label class="form-label fw-semibold text-secondary">จำนวน (ชิ้น)</label>
+      <div class="input-group">
+        <input
+          id="amount"
+          type="number"
+          step="1"
+          min="0"
+          class="form-control text-end bg-primary-subtle text-primary"
+          placeholder="0"
+        />
+        <span class="input-group-text bg-light text-muted">ชิ้น</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="divider"></div>
+
+      <div class="d-flex align-items-center justify-content-between mt-2 mb-2">
+        <div class="section-title">ตารางวัตถุดิบ/ส่วนผสม</div>
+        <div class="text-secondary" id="matsSummary"></div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead>
+            <tr>
+              <th style="width: 40%">ชื่อทางการค้า</th>
+              <th class="text-end" style="width: 20%">ปริมาณที่ใช้</th>
+              <th class="text-end" style="width: 20%">ราคาต่อหน่วย</th>
+              <th class="text-end" style="width: 20%">ราคา</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-mats">
+            <tr>
+              <td colspan="4" class="text-center text-muted py-4">
+                กำลังโหลด...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script src="/js/showdetail-edit.js"></script>
+  </body>
+</html>

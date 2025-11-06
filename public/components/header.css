@@ -1,0 +1,6 @@
+/* /public/components/header.css */
+.nav-link.active {
+  color: #00d312 !important; /* ✅ ให้ตัวหนังสือเขียว */
+  background: none !important; /* ลบพื้นหลังออก */
+  font-weight: 600; /* เพิ่มน้ำหนักเล็กน้อยให้อ่านชัด */
+}

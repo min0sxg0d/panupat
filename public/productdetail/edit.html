@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>เพิ่มสารเคมี</title>
+
+    <link rel="stylesheet" href="/css/index.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <!-- Tom Select (ค้นหาในดรอปดาว) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="site-header"></div>
+    <script src="/js/include-header.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <main class="container-fluid mt-3" style="max-width: 1140px">
+      <div class="card shadow p-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <h4 class="mb-0">เพิ่มสารเคมี</h4>
+        </div>
+
+        <!-- แถบหัวข้อสินค้า -->
+        <div class="border rounded bg-light p-3 mb-3">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label">ชื่อผลิตภัณฑ์</label>
+              <input
+                id="p_name"
+                class="form-control bg-secondary-subtle text-secondary"
+                readonly
+              />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">รหัสผลิตภัณฑ์</label>
+              <input
+                id="p_code"
+                class="form-control bg-secondary-subtle text-secondary"
+                readonly
+              />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">สถานะ</label>
+              <input
+                id="p_status"
+                class="form-control bg-secondary-subtle text-secondary"
+                readonly
+              />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">แบรนด์สินค้า</label>
+              <input
+                id="p_brand"
+                class="form-control bg-secondary-subtle text-secondary"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="mt-2">
+            <small class="text-muted"
+              >เลขจดแจ้ง: <span id="p_notify">-</span></small
+            >
+          </div>
+        </div>
+
+        <hr class="my-2" />
+
+        <!-- ใช้ form ไว้รองรับการบันทึกภายหลัง -->
+        <form id="productDetailForm">
+          <!-- ฟอร์มเพิ่มสาร -->
+          <div class="row g-3 align-items-end">
+            <div class="col-md-6">
+              <label class="form-label">ชื่อสารเคมี</label>
+              <select
+                id="chem_id"
+                class="form-select bg-primary-subtle text-primary"
+                data-current-id=""
+              >
+                <option value="">-- เลือกสารเคมี --</option>
+              </select>
+              <input type="hidden" id="chem_id_hidden" name="chem_id" />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">ปริมาณสัดส่วนของสารเคมี (ร้อยละ)</label>
+              <input
+                id="chem_percent"
+                type="number"
+                class="form-control bg-primary-subtle text-primary"
+                min="0"
+                max="100"
+                step="0.01"
+                placeholder="เช่น 25"
+              />
+            </div>
+
+            <div class="col-md-2 d-grid">
+              <button
+                id="btnAddChem"
+                class="btn btn-outline-dark"
+                type="button"
+              >
+                เพิ่ม
+              </button>
+            </div>
+          </div>
+
+          <!-- กล่องรายละเอียดสารเคมี -->
+          <div id="chem_info" class="mt-3"></div>
+
+          <div
+            id="remainBox"
+            class="alert alert-danger py-2 mb-0 d-flex align-items-center"
+            role="alert"
+          >
+            <i id="remainIcon" class="bi bi-exclamation-circle-fill me-2"></i>
+            <span id="remainLabel">
+              ปริมาณสัดส่วนคงเหลือ <span id="remainText">100</span>%
+            </span>
+          </div>
+
+          <!-- ปุ่มท้ายหน้า -->
+          <div class="d-flex justify-content-start gap-2 mt-4">
+            <a class="btn btn-secondary" href="index.html">ย้อนกลับ</a>
+            <button id="btnSave" type="button" class="btn btn-success">
+              <i class="bi bi-save"></i> บันทึก
+            </button>
+          </div>
+          <!-- ตารางรายการสาร -->
+          <div class="table-responsive mt-3">
+            <table class="table table-bordered align-middle">
+              <thead class="table-dark text-center">
+                <tr>
+                  <th>ชื่อทางการค้า</th>
+                  <th style="width: 180px">ปริมาณสัดส่วน (ร้อยละ)</th>
+                  <th style="width: 60px">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="chemTableBody"></tbody>
+            </table>
+          </div>
+        </form>
+        <div id="alertBox" class="alert d-none" role="alert"></div>
+      </div>
+    </main>
+    <!-- Confirm Save Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">ยืนยันการแก้ไข</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="ปิด"
+            ></button>
+          </div>
+          <div class="modal-body">
+            คุณต้องการบันทึกการแก้ไขผลิตภัณฑ์นี้ใช่หรือไม่?
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">
+              ยกเลิก
+            </button>
+            <button id="confirmSave" class="btn btn-success" type="button">
+              ยืนยัน
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <script src="/js/productdetail-edit.js"></script>
+    <script src="/js/navbar.js"></script>
+  </body>
+</html>
